@@ -1,0 +1,519 @@
+<!-- Define a theme module (in index.html or in a separate HTML import) -->
+
+    <style>
+        .status-bubble {
+            border-radius: 50%;
+            background: #c1c2c3ab;
+            color: white;
+            position: absolute;
+            top: var(--top);
+            left: var(--left);
+        }
+        .status-bubble label {
+            margin-top: 2em;
+            color: #396896;
+        }
+        .status-bubble vaadin-button {
+            position: absolute;
+        }
+        .home-controls H3{
+            color: white;
+        }
+        .home-controls {
+            background: url("https://images.unsplash.com/photo-1543751416-705d3e34d02a?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1051&q=80");
+            background-size: cover;
+        }
+        .slider-dimmer {
+            -webkit-appearance: none;
+            margin: 10px 0;
+            width: 120px;
+            background: rgba(0, 0, 0, 0.0);
+        }
+        .slider-dimmer:focus {
+          outline: none;
+        }
+        .slider-dimmer::-webkit-slider-runnable-track {
+          width: 100%;
+          height: 14px;
+          cursor: pointer;
+          animate: 0.2s;
+          box-shadow: 1px 1px 1px #50555C;
+          background: #50555C;
+          border-radius: 14px;
+          border: 0px solid #000000;
+        }
+        .slider-dimmer::-webkit-slider-thumb {
+          box-shadow: 0px 0px 0px #000000;
+          border: 0px solid #000000;
+          height: 20px;
+          width: 40px;
+          border-radius: 12px;
+          background: #529DE1;
+          cursor: pointer;
+          -webkit-appearance: none;
+          margin-top: -3px;
+        }
+        .slider-dimmer:focus::-webkit-slider-runnable-track {
+          background: #50555C;
+        }
+        .slider-dimmer::-moz-range-track {
+          width: 100%;
+          height: 14px;
+          cursor: pointer;
+          animate: 0.2s;
+          box-shadow: 1px 1px 1px #50555C;
+          background: #50555C;
+          border-radius: 14px;
+          border: 0px solid #000000;
+        }
+        .slider-dimmer::-moz-range-thumb {
+          box-shadow: 0px 0px 0px #000000;
+          border: 0px solid #000000;
+          height: 20px;
+          width: 40px;
+          border-radius: 12px;
+          background: #529DE1;
+          cursor: pointer;
+        }
+        .slider-dimmer::-ms-track {
+          width: 100%;
+          height: 14px;
+          cursor: pointer;
+          animate: 0.2s;
+          background: transparent;
+          border-color: transparent;
+          color: transparent;
+        }
+        .slider-dimmer::-ms-fill-lower {
+          background: #50555C;
+          border: 0px solid #000000;
+          border-radius: 28px;
+          box-shadow: 1px 1px 1px #50555C;
+        }
+        .slider-dimmer::-ms-fill-upper {
+          background: #50555C;
+          border: 0px solid #000000;
+          border-radius: 28px;
+          box-shadow: 1px 1px 1px #50555C;
+        }
+        .slider-dimmer::-ms-thumb {
+          margin-top: 1px;
+          box-shadow: 0px 0px 0px #000000;
+          border: 0px solid #000000;
+          height: 20px;
+          width: 40px;
+          border-radius: 12px;
+          background: #529DE1;
+          cursor: pointer;
+        }
+        .slider-dimmer:focus::-ms-fill-lower {
+          background: #50555C;
+        }
+        .slider-dimmer:focus::-ms-fill-upper {
+          background: #50555C;
+        }
+        @keyframes move {
+          100% {
+            transform: translate3d(0, 0, -1000px);
+          }
+        }
+        .air-quality-animation {
+            background: hsl(0, 0%, 75%);
+            width: 300px;
+            height: 300px;
+            position: relative;
+            overflow: hidden;
+            border-radius: 30%;
+            border: grey solid 5px;
+        }
+        .animation-wrap {
+          margin: 0 auto;
+          width: 300px;
+          height: 300px;
+          transform-style: preserve-3d;
+          transform-origin: center center;
+          perspective: 600px;
+        }
+        .particle {
+          position: absolute;
+          background: black;
+          opacity: .7;
+          border-radius: 50%;
+          animation: move 3s infinite;
+        }
+        .large-label {
+                font-size: 3em;
+                align-self: center;
+                font-weight: 100;
+         }
+         .thermostat-temp-label {
+                font-size: 7em;
+                color: lightgrey;
+                align-self: center;
+                font-weight: 100;
+         }
+         .temp_label {
+                font-size: 7em;
+                color: black;
+                align-self: center;
+                font-weight: 100;
+         }
+         .thermostat-h3 {
+            color: white;
+         }
+         .medium-label {
+                font-size: 2em;
+                font-weight: 100;
+         }
+        .normal-button {
+            border-radius: 0px;
+        }
+        .heating-setpoint {
+            color: red;
+            margin-top: unset;
+        }
+        .cooling-setpoint {
+            color: blue;
+            margin-top: unset;
+        }
+        .minus-button {
+            margin-top: unset;
+        }
+        .plus-button {
+            margin-top: unset;
+        }
+        .reset-button {
+            width: 100px;
+            height: 50px;
+            border-radius: 10px;
+            background: red;
+            color: white;
+            font-size: 10pt;
+
+        }
+        @keyframes example {
+          0%   {left:var(--left-start); top:var(--top-start);}
+          100% {left:attr(left); top:attr(top);}
+        }
+        .usage-bubble-outlet {
+            width: 75px;
+            height: 75px;
+            border-radius: 50%;
+            background: dodgerblue;
+            color: white;
+            font-size: 10pt;
+            text-align: center;
+            display: grid;
+            align-items: center;
+            background-size: 60px 60px;
+            background-position: 50% 50%;
+            background-repeat: no-repeat;
+            -webkit-animation-name: example; /* Safari 4.0 - 8.0 */
+            -webkit-animation-duration: 2s; /* Safari 4.0 - 8.0 */
+        }
+        .usage-bubble-ac-unit {
+            width: 75px;
+            height: 75px;
+            border-radius: 50%;
+            background: limegreen;
+            color: white;
+            font-size: 10pt;
+            text-align: center;
+            display: grid;
+            align-items: center;
+            background-size: 50px 50px;
+            background-position: 50% 50%;
+            background-repeat: no-repeat;
+            -webkit-animation-name: example; /* Safari 4.0 - 8.0 */
+            -webkit-animation-duration: 2s; /* Safari 4.0 - 8.0 */
+        }
+        .usage-bubble-unt-meter {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            background: darkorange;
+            color: white;
+            font-size: 10pt;
+        }
+        .usage-bubble-room {
+            width: 75px;
+            height: 75px;
+            border-radius: 50%;
+            background: grey;
+            color: white;
+            font-size: 10pt;
+            text-align: center;
+            display: grid;
+            align-items: center;
+            background-size: 50px 50px;
+            background-position: 50% 50%;
+            background-repeat: no-repeat;
+            -webkit-animation-name: example; /* Safari 4.0 - 8.0 */
+            -webkit-animation-duration: 2s; /* Safari 4.0 - 8.0 */
+        }
+        .usage-bubble-light {
+            width: 75px;
+            height: 75px;
+            border-radius: 50%;
+            background: black;
+            color: black;
+            font-size: 10pt;
+            font-weight: bold;
+            text-align: center;
+            display: grid;
+            align-items: center;
+            background-size: 80px 80px;
+            background-position: 50% 50%;
+            background-repeat: no-repeat;
+        }
+        .picker-blue-white {
+            width: 125px;
+            height: 125px;
+            border-radius: 50%;
+            background: #9dc7ec;
+            margin-right: 5px;
+        }
+        .picker-super-bright {
+            width: 125px;
+            height: 125px;
+            border-radius: 50%;
+            background-image: linear-gradient(to right, #d5c31b , #9dc7ec);
+            margin: 0 auto;
+            margin-right: 5px;
+        }
+        .picker-blue {
+            width: 125px;
+            height: 125px;
+            border-radius: 50%;
+            background: blue;
+            margin: 0 auto;
+            margin-right: 5px;
+        }
+        .picker-light-blue {
+            width: 125px;
+            height: 125px;
+            border-radius: 50%;
+            background: lightblue;
+            margin: 0 auto;
+            margin-left: 5px;
+        }
+        .picker-green {
+            width: 125px;
+            height: 125px;
+            border-radius: 50%;
+            background: green;
+            margin: 0 auto;
+        }
+        .picker-yellow {
+            width: 125px;
+            height: 125px;
+            border-radius: 50%;
+            background: yellow;
+            margin: 0 auto;
+        }
+        .picker-orange {
+            width: 125px;
+            height: 125px;
+            border-radius: 50%;
+            background: orange;
+            margin: 0 auto;
+        }
+        .picker-pink {
+            width: 125px;
+            height: 125px;
+            border-radius: 50%;
+            background: pink;
+            margin: 0 auto;
+            margin-right: 5px;
+        }
+        .picker-red {
+            width: 125px;
+            height: 125px;
+            border-radius: 50%;
+            background: red;
+            margin: 0 auto;
+            margin-left: 5px;
+        }
+        
+    </style>
+<dom-module id="text-field-style" theme-for="vaadin-text-field">
+    <template>
+        <style>
+            :host(.pin-text) [part="input-field"] {
+                height: 200px;
+                font-size: 4em;
+                font-weight: 100;
+            }
+            :host(.pin-text) [part="value"] {
+                text-align: center;
+            }
+        </style>
+    </template>
+</dom-module>
+
+<dom-module id="button-style" theme-for="vaadin-button">
+    <template>
+        <style>
+            :host(.status-button) {
+                background: transparent;
+            }
+            :host(.security-sensors) {
+                border-radius: 50%;
+                border: solid 5px var(--color);
+            }
+            :host(.security-buttons) {
+                border-radius: 50%;
+                border: solid 5px var(--color);
+                background: hsl(161, 100%, 94%);
+                position: absolute;
+                top: var(--top);
+                left: var(--left)
+            }
+            :host(.security-status) {
+                border-radius: 50%;
+                position: absolute;
+                top: 100px;
+                left: 150px;
+            }
+            :host(.plus-button){
+                    border-radius: 50% 50% 0% 0%;
+                    border: solid 2px lightgrey;
+            }
+            :host(.minus-button){
+                    border-radius: 0% 0% 50% 50%;
+                    border: solid 2px lightgrey;
+            }
+            :host(.left-button){
+                    border-radius: 50% 0% 0% 50%;
+                    border: solid 2px lightgrey;
+            }
+            :host(.right-button){
+                    border-radius: 0% 50% 50% 0%;
+                    border: solid 2px lightgrey;
+            }
+            :host(.thermostat-button) {
+                border: solid 2px lightgrey;
+            }
+            :host(.outlet-button) {
+                border-radius: 50%;
+                background: silver;
+                border: 5px solid hsl(var(--hsl));
+                box-shadow: 0px 0px 20px hsla(var(--hsl), 0.05) inset, 0px 0px 20px hsla(var(--hsl), 0.8);
+            }
+            :host(.exhaust-fan-button) {
+                border-radius: 50%;
+                background: silver;
+                border: 5px solid hsl(var(--hsl));
+                box-shadow: 0px 0px 20px hsla(var(--hsl), 0.05) inset, 0px 0px 20px hsla(var(--hsl), 0.8);
+            }
+        </style>
+    </template>
+</dom-module>
+
+<dom-module id="number-field-style" theme-for="vaadin-number-field">
+    <template>
+        <style>
+            :host(.heating-setpoint) [part="input-field"] {
+                width: 125px;
+            }
+            :host(.heating-setpoint) [part="value"] {
+                font-size: 50px;
+                text-align: center;
+            }
+            :host(.cooling-setpoint) [part="input-field"] {
+                width: 125px;
+            }
+            :host(.cooling-setpoint) [part="value"] {
+                font-size: 50px;
+                text-align: center;
+            }
+        </style>
+    </template>
+</dom-module>
+
+<dom-module id="container-styles" theme-for="vaadin-vertical-layout">
+    <template>
+        <style>
+
+            :host(.lighting-panel) {
+                background: black;
+                border-radius: 50%;
+                transition: border 1s ease, box-shadow 1.5s ease;
+                border: 5px solid hsl(var(--color));
+                box-shadow: 0px 0px 20px hsla(var(--color), 0.05) inset, 0px 0px 100px hsla(var(--color), 0.8);
+                align-items: center;
+                margin-top: 0;
+            }
+            :host(.control-panel) {
+                position: absolute;
+                top: var(--top);
+                left: var(--left);
+                max-width: 350px;
+            }
+            :host(.count-down-box) {
+                align-items: center;
+                font-size: 3em;
+            }
+            :host(.thermostat-container) {
+                background: black;
+                border-radius: 50px;
+                border: solid 5px grey;
+                max-width: 390px;
+            }
+
+        </style>
+    </template>
+</dom-module>
+
+
+<dom-module id="my-theme-module" theme-for="vaadin-app-layout">
+    <template>
+        <style>
+            [part="navbar"] {
+                flex: none;
+                display: flex;
+                align-items: center;
+                height: 5em;
+                background: #58616f;
+            }
+            :host {
+                background-color: transparent;
+            }
+        </style>
+    </template>
+</dom-module>
+<dom-module id="my-theme-module3" theme-for="vaadin-tab">
+    <template>
+        <style>
+            :host {
+                box-sizing: border-box;
+                padding: 0.5rem 0.75rem;
+                margin-left: 2em;
+                margin-right: 2em;
+                font-family: var(--lumo-font-family);
+                font-size: var(--lumo-font-size-m);
+                line-height: var(--lumo-line-height-xs);
+                font-weight: 500;
+                text-align: center;
+                opacity: 1;
+                color: hsl(214, 10%, 92%);
+                transition: 0.15s color, 0.2s transform;
+                flex-shrink: 0;
+                display: flex;
+                align-items: center;
+                position: relative;
+                cursor: pointer;
+                transform-origin: 50% 100%;
+                outline: none;
+                -webkit-font-smoothing: antialiased;
+                -moz-osx-font-smoothing: grayscale;
+                overflow: hidden;
+                min-width: var(--lumo-size-m);
+                -webkit-user-select: none;
+                -moz-user-select: none;
+                -ms-user-select: none;
+                user-select: none;
+            }
+        </style>
+    </template>
+</dom-module>
